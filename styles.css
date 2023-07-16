@@ -25,10 +25,10 @@
 }
 
 .dashboard {
-    background-color: hwb(0 0% 100%);  
+    background-color:black;  
     border-radius: 40px;
     padding: 10px 30px 90px 30px;
-    margin: 15px 30px 10px 30px;
+    margin: 15px 60px 10px 60px;
 }
 
 .mynews {
@@ -77,22 +77,23 @@
 
 .savednews, .newnews {
     background-color: black;
-    padding: 20px 30px 30px 30px;
+    padding: 10px 20px 20px 20px;
     margin-top: 33px;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 40px;
+    margin-right: 40px;
     border-radius: 20px;
 
 }
 
-.savebtn, .newbtn {
+.savebtn, .newbtn, .category, .all, .business, .sports, .world, .politics, .hatke, .science {
     background: rgb(235, 235, 47);
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 15px;
     font-size: 25px;
     font-weight: bold;
-    padding: 10px 30px;
-    margin-top: 10px;
+    padding: 10px 20px;
+    margin-top: 5px;
+    cursor: pointer;
 }
 
 .newsfeed1, .newsfeed2 {
@@ -100,16 +101,53 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
     font-weight: bold;
-    padding: 10px 30px;
-    margin-top: 10px;
+    padding: 10px 20px;
+    margin-top: 5px;
 }
 
-.loadbtn1 {
+.loadbtn1, .loadbtn2 {
     display: flex;
     gap: 20px;
 }
 
-.loadbtn2 {
+.selection, .lists {
     display: flex;
+    justify-content: start;
     gap: 20px;
+    padding-top: 5px;
+}
+
+.newli {
+    background-color: lightgray;
+    padding: 10px 40px 40px 40px;
+    margin: 40px 70px 40px 70px;
+    border-radius: 15px;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.author, .cg {
+    display: flex;
+    gap: 10px;
+}
+
+.author nav, .cg nav{
+    font-size: 30px;
+}
+
+.author h3, .cg h3{
+    font-size: 30px;
+}
+
+.content {
+    padding-top: 10px;
+    margin-top: 5px;
+    font-size: 35px;
+}
+
+.fav-icon {
+    text-align: right;
 }
