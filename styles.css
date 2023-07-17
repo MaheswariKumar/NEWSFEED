@@ -54,6 +54,7 @@
     font-weight: bold;
     padding: 15px 50px;
     margin-top: 50px;
+    cursor: pointer;
 }
 
 .getnews {
@@ -148,6 +149,80 @@
     font-size: 35px;
 }
 
-.fav-icon {
-    text-align: right;
-}
+
+/* Add this at the end of your existing CSS */
+@media (max-width: 768px) {
+    .logosection {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .logosection h1 {
+      font-size: 35px;
+    }
+  
+    .dashboard {
+      padding-bottom: 50px;
+    }
+  
+    .mynews {
+      margin: 10px 30px;
+      font-size: 20px;
+    }
+  
+    #loadnews {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .save, .new {
+      font-size: 25px;
+      padding: 10px 20px;
+      margin-top: 20px;
+    }
+  
+    .getnews, .stay {
+      font-size: 35px;
+    }
+  
+    .savednews, .newnews {
+      padding: 10px;
+      margin: 20px;
+    }
+  
+    .newsfeed1, .newsfeed2 {
+      font-size: 20px;
+      padding: 10px;
+    }
+  
+    .loadbtn1, .loadbtn2 {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .selection, .lists {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .newli {
+      padding: 10px;
+      margin: 20px;
+    }
+  
+    .author, .cg {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+  
+    .author nav, .cg nav, .author h3, .cg h3, .content {
+      font-size: 20px;
+    }
+
+    .fa.fa-heart,
+    .fa.fa-heart-o {
+        font-size: 20px;
+    }
+  }
+  
