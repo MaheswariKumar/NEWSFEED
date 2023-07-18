@@ -5,6 +5,12 @@ const loadnewbtn = document.querySelector(".new");
 let isnewbtnclicked = true;
 let isselectclicked = true;
 let isAllClicked = true;
+let businessNotFav = true;
+let sportsNotFav = true;
+let worldNotFav = true;
+let politicsNotFav = true;
+let hatkeNotFav = true;
+let scienceNotfav = true;
 
 const newslists = [];
 
@@ -23,6 +29,7 @@ newbtn.addEventListener("click", () => {
     }
 });
 
+
 section.addEventListener("click", (event) => {
   if (event.target.classList.contains("category")) {
     if (event.target.classList.contains("category")) {
@@ -35,31 +42,93 @@ section.addEventListener("click", (event) => {
         isselectclicked = true;
       }
     }
-  } else if (event.target.classList.contains("all")) {
+  } 
+
+  else if (event.target.classList.contains("all")) {
         if (isAllClicked){
           document.querySelector(".loading").innerHTML = "";
           newslists.forEach(newlist => {
-            document.querySelector(".loading").innerHTML += newlist;
+              document.querySelector(".loading").innerHTML += newlist;
           });
         }
-  } else if (event.target.classList.contains("business")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "business");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
-  } else if (event.target.classList.contains("sports")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "sports");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
-  } else if (event.target.classList.contains("world")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "world");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
-  } else if (event.target.classList.contains("politics")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "politics");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
-  } else if (event.target.classList.contains("hatke")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "hatke");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
-  } else if (event.target.classList.contains("science")) {
-    const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "science");
-    document.querySelector(".loading").innerHTML = sportsNews.join("");
+  } 
+  
+  else if (event.target.classList.contains("business")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "business") {
+        businessNotFav = false;
+      }
+    });
+    if (businessNotFav){
+      const buisnessNews = newslists.filter(newsItem => extractCategory(newsItem) === "business");
+      document.querySelector(".loading").innerHTML = buisnessNews.join("");
+    }
+  } 
+  
+  else if (event.target.classList.contains("sports")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "sports") {
+        sportsNotFav = false;
+      }
+    });
+    if (sportsNotFav) {
+      const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "sports");
+      document.querySelector(".loading").innerHTML = sportsNews.join("");
+    }
+  } 
+  
+  else if (event.target.classList.contains("world")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "world") {
+        worldNotFav = false;
+      }
+    });
+    if (worldNotFav){
+      const worldNews = newslists.filter(newsItem => extractCategory(newsItem) === "world");
+      document.querySelector(".loading").innerHTML = worldNews.join("");
+    }
+  } 
+  
+  else if (event.target.classList.contains("politics")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "politics") {
+        politicsNotFav = false;
+      }
+    });
+    if (politicsNotFav){
+      const politicsNews = newslists.filter(newsItem => extractCategory(newsItem) === "politics");
+      document.querySelector(".loading").innerHTML = politicsNews.join("");
+    }
+  } 
+  
+  else if (event.target.classList.contains("hatke")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "hatke") {
+        hatkeNotFav = false;
+      }
+    });
+    if (hatkeNotFav){
+      const hatkeNews = newslists.filter(newsItem => extractCategory(newsItem) === "hatke");
+      document.querySelector(".loading").innerHTML = hatkeNews.join("");
+    }
+  } 
+  
+  else if (event.target.classList.contains("science")) {
+    const savingTags = document.querySelectorAll(".saving .cg h3");
+    savingTags.forEach(tag => {
+      if (tag.textContent === "science") {
+        scienceNotfav = false;
+      }
+    });
+    if (scienceNotfav){
+      const scienceNews = newslists.filter(newsItem => extractCategory(newsItem) === "science");
+      document.querySelector(".loading").innerHTML = scienceNews.join("");
+    } 
   }
 });
 
@@ -81,44 +150,58 @@ loadnewbtn.addEventListener("click", ()=>{
 })
 
 //Fav news
-let clonedElement = Node;
-document.addEventListener("click", (event)=>{
+let clonedElement = null;
+console.log(newslists);
+document.addEventListener("click", (event) => {
   if (event.target.classList.contains("fav-icon")) {
     const parentdiv = event.target.closest(".newli");
-    clonedElement = parentdiv.cloneNode(true);
+
+    const clonedElement = parentdiv.cloneNode(true);
     clonedElement.querySelector(".fav-icon").remove();
+    console.log(clonedElement);
 
     const heartIcon = document.createElement("i");
     heartIcon.classList.add("fa", "fa-heart");
     heartIcon.style.color = "red";
-    heartIcon.style.fontSize = "35px";
     heartIcon.style.float = "right";
     heartIcon.style.cursor = "pointer";
     clonedElement.appendChild(heartIcon);
+
     document.querySelector(".saving").appendChild(clonedElement);
+    document.querySelector(".loading").removeChild(parentdiv);
   }
-})
+
+  else if (event.target.classList.contains("fa", "fa-heart")) {
+    console.log("yes");
+    const parentdiv = event.target.closest(".newli");
+    const clonedElement = parentdiv.cloneNode(true);
+    clonedElement.querySelector(".fa.fa-heart").remove();
+
+    const favIcon = document.createElement("i");
+    favIcon.classList.add("fav-icon", "fa", "fa-heart-o");
+    favIcon.style.color = "black";
+    favIcon.style.float = "right";
+    favIcon.style.cursor = "pointer";
+
+    clonedElement.appendChild(favIcon);
+
+    document.querySelector(".loading").appendChild(clonedElement);
+    document.querySelector(".saving").removeChild(parentdiv);
+  }
+});
+
 
 let issavedbtnclicked = true;
 document.querySelector(".savednews").addEventListener("click", ()=>{
-  if (isAllClicked){
+  if (issavedbtnclicked){
     document.querySelector(".saving").style.display = "block";
-    isAllClicked = false;
+    issavedbtnclicked = false;
   }
   else {
     document.querySelector(".saving").style.display = "none";
   }
 })
 
-const adjustIconSize = () => {
-  const icons = document.querySelectorAll(".fa fa-heart, .fa fa-heart-o");
-  const iconSize = window.innerWidth <= 768 ? "20px" : "35px";
-  icons.forEach((icon) => (icon.style.fontSize = iconSize));
-};
-
-// Call the adjustIconSize function on page load and whenever the window is resized
-window.addEventListener("DOMContentLoaded", adjustIconSize);
-window.addEventListener("resize", adjustIconSize);
 
 // Fetching Data
 async function fetchingdata() {
@@ -140,7 +223,7 @@ async function fetchingdata() {
           </div>
           </div>
           <p class="content">${element["content"]} <a href=${element["url"]} target="_blank" style="color: blue; text-decoration: none;">READ MORE</a></p>
-          <i class='fa fa-heart-o fav-icon' style='color: black; font-size: 35px; float:right; cursor: pointer;'></i>
+          <i class='fa fa-heart-o fav-icon' style='color: black; cursor: pointer; float:right; '></i>
           </div>
           `);
   });

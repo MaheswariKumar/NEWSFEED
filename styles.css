@@ -149,8 +149,10 @@
     font-size: 35px;
 }
 
+.newli .fa {
+  font-size: 35px;
+}
 
-/* Add this at the end of your existing CSS */
 @media (max-width: 768px) {
     .logosection {
       flex-direction: column;
@@ -220,9 +222,9 @@
       font-size: 20px;
     }
 
-    .fa.fa-heart,
-    .fa.fa-heart-o {
+    .newli .fa {
         font-size: 20px;
+        margin-bottom: 30px;
     }
   }
   
