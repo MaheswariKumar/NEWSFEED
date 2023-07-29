@@ -1,16 +1,11 @@
 const section = document.querySelector(".newnews");
 const newbtn = document.querySelector(".newbtn");
 const loadnewbtn = document.querySelector(".new");
+const loadsavebtn = document.querySelector(".save");
 
 let isnewbtnclicked = true;
 let isselectclicked = true;
 let isAllClicked = true;
-let businessNotFav = true;
-let sportsNotFav = true;
-let worldNotFav = true;
-let politicsNotFav = true;
-let hatkeNotFav = true;
-let scienceNotfav = true;
 
 const newslists = [];
 
@@ -31,7 +26,6 @@ newbtn.addEventListener("click", () => {
 
 
 section.addEventListener("click", (event) => {
-  if (event.target.classList.contains("category")) {
     if (event.target.classList.contains("category")) {
       if (isselectclicked){
         document.querySelector(".lists").style.display = "block";
@@ -42,7 +36,6 @@ section.addEventListener("click", (event) => {
         isselectclicked = true;
       }
     }
-  } 
 
   else if (event.target.classList.contains("all")) {
         if (isAllClicked){
@@ -54,82 +47,34 @@ section.addEventListener("click", (event) => {
   } 
   
   else if (event.target.classList.contains("business")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "business") {
-        businessNotFav = false;
-      }
-    });
-    if (businessNotFav){
       const buisnessNews = newslists.filter(newsItem => extractCategory(newsItem) === "business");
       document.querySelector(".loading").innerHTML = buisnessNews.join("");
     }
-  } 
   
   else if (event.target.classList.contains("sports")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "sports") {
-        sportsNotFav = false;
-      }
-    });
-    if (sportsNotFav) {
       const sportsNews = newslists.filter(newsItem => extractCategory(newsItem) === "sports");
       document.querySelector(".loading").innerHTML = sportsNews.join("");
     }
-  } 
   
   else if (event.target.classList.contains("world")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "world") {
-        worldNotFav = false;
-      }
-    });
-    if (worldNotFav){
       const worldNews = newslists.filter(newsItem => extractCategory(newsItem) === "world");
       document.querySelector(".loading").innerHTML = worldNews.join("");
     }
-  } 
   
   else if (event.target.classList.contains("politics")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "politics") {
-        politicsNotFav = false;
-      }
-    });
-    if (politicsNotFav){
       const politicsNews = newslists.filter(newsItem => extractCategory(newsItem) === "politics");
       document.querySelector(".loading").innerHTML = politicsNews.join("");
     }
-  } 
   
   else if (event.target.classList.contains("hatke")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "hatke") {
-        hatkeNotFav = false;
-      }
-    });
-    if (hatkeNotFav){
       const hatkeNews = newslists.filter(newsItem => extractCategory(newsItem) === "hatke");
       document.querySelector(".loading").innerHTML = hatkeNews.join("");
-    }
-  } 
+    } 
   
   else if (event.target.classList.contains("science")) {
-    const savingTags = document.querySelectorAll(".saving .cg h3");
-    savingTags.forEach(tag => {
-      if (tag.textContent === "science") {
-        scienceNotfav = false;
-      }
-    });
-    if (scienceNotfav){
       const scienceNews = newslists.filter(newsItem => extractCategory(newsItem) === "science");
       document.querySelector(".loading").innerHTML = scienceNews.join("");
     } 
-  }
 });
 
 function extractCategory(htmlContent) {
@@ -143,49 +88,99 @@ function extractCategory(htmlContent) {
   return null;
 }
 
+//Load Save News
+loadsavebtn.addEventListener("click", ()=>{
+  document.querySelector(".savednews").scrollIntoView({behavior:"smooth"});
+})
+
+
+//Load New News
 loadnewbtn.addEventListener("click", ()=>{
   const randomItems = newslists.sort(() => 0.5 - Math.random()).slice(0, 2);
   document.querySelector(".loading").innerHTML += randomItems;
   document.querySelector(".newnews").scrollIntoView({behavior:"smooth"});
 })
 
+//Local Storage
+
+function saveToLocalStorage(element) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  favorites.push(element.outerHTML);
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+
+function removeFromLocalStorage(element) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  console.log(favorites);
+  console.log(element);
+  console.log(element.outerHTML);;
+  
+  const updatedFavorites = favorites.filter((fav) => fav !== element.outerHTML);
+  localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+}
+
+
+function loadFavorites() {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  const savingDiv = document.querySelector(".saving");
+  savingDiv.innerHTML = favorites.join("");
+}
+
+loadFavorites();
+
 //Fav news
 let clonedElement = null;
-console.log(newslists);
+
 document.addEventListener("click", (event) => {
   if (event.target.classList.contains("fav-icon")) {
     const parentdiv = event.target.closest(".newli");
-
     const clonedElement = parentdiv.cloneNode(true);
-    clonedElement.querySelector(".fav-icon").remove();
-    console.log(clonedElement);
+    const favtag = clonedElement.querySelector(".fav-icon");
+    const idValue = parentdiv.getAttribute('id');
+    console.log(idValue);
+
+    console.log(parentdiv.getAttribute("id"));
+
+
+    const heart = parentdiv.querySelector("i");
+    heart.classList.remove("fav-icon", "fa", "fa-heart-o");
+    heart.classList.add("fa", "fa-heart");
+    heart.style.color = "red";
+    console.log(parentdiv);
+    // console.log(heart);
+    console.log(newslists);
 
     const heartIcon = document.createElement("i");
     heartIcon.classList.add("fa", "fa-heart");
     heartIcon.style.color = "red";
-    heartIcon.style.float = "right";
     heartIcon.style.cursor = "pointer";
-    clonedElement.appendChild(heartIcon);
-
+    clonedElement.replaceChild(heartIcon, favtag);
+    newslists[idValue] = clonedElement.outerHTML.trim();
+    console.log(newslists);
     document.querySelector(".saving").appendChild(clonedElement);
-    document.querySelector(".loading").removeChild(parentdiv);
+    // document.querySelector(".loading").removeChild(parentdiv);
+    // document.querySelector(".loading").appendChild(clonedElement);
+    saveToLocalStorage(clonedElement);
+    
   }
 
   else if (event.target.classList.contains("fa", "fa-heart")) {
-    console.log("yes");
     const parentdiv = event.target.closest(".newli");
     const clonedElement = parentdiv.cloneNode(true);
-    clonedElement.querySelector(".fa.fa-heart").remove();
+    removeFromLocalStorage(clonedElement);
+    const idValue = parentdiv.getAttribute('id');
+    const favtag = clonedElement.querySelector(".fa.fa-heart");
 
     const favIcon = document.createElement("i");
     favIcon.classList.add("fav-icon", "fa", "fa-heart-o");
     favIcon.style.color = "black";
-    favIcon.style.float = "right";
     favIcon.style.cursor = "pointer";
 
-    clonedElement.appendChild(favIcon);
+    clonedElement.replaceChild(favIcon, favtag);
+    newslists[idValue] = clonedElement.outerHTML.trim();
+    console.log(newslists);
 
-    document.querySelector(".loading").appendChild(clonedElement);
     document.querySelector(".saving").removeChild(parentdiv);
   }
 });
@@ -199,6 +194,7 @@ document.querySelector(".savednews").addEventListener("click", ()=>{
   }
   else {
     document.querySelector(".saving").style.display = "none";
+    issavedbtnclicked = true;
   }
 })
 
@@ -208,24 +204,29 @@ async function fetchingdata() {
   const respa = await fetch(`https://content.newtonschool.co/v1/pr/64806cf8b7d605c99eecde47/news`);
   const data = await respa.json();
   console.log(data);
-
+  let idx = 0;
+  let favcg = true;
   data.forEach(element => {
-    newslists.push(`
-          <div class="newli">
-          <div class="details">
-          <div class="author">
-          <nav>BY</nav>
-          <h3>${element[" author"]}</h3>
-          </div>
-          <div class="cg">
-          <nav>CATEGORY </nav>
-          <h3>${element[" category"]}</h3>
-          </div>
-          </div>
-          <p class="content">${element["content"]} <a href=${element["url"]} target="_blank" style="color: blue; text-decoration: none;">READ MORE</a></p>
-          <i class='fa fa-heart-o fav-icon' style='color: black; cursor: pointer; float:right; '></i>
-          </div>
-          `);
+
+    let listtag = `
+    <div class="newli" id=${idx}>
+    <div class="details">
+    <div class="author">
+    <nav>BY</nav>
+    <h3>${element[" author"]}</h3>
+    </div>
+    <div class="cg">
+    <nav>CATEGORY </nav>
+    <h3>${element[" category"]}</h3>
+    </div>
+    </div>
+    <p class="content">${element["content"]} <a href=${element["url"]} target="_blank" style="color: blue; text-decoration: none;">READ MORE</a></p>
+    <i class=${favcg ? "'fa fa-heart-o fav-icon'" : "'fa fa-heart'"} id="itag" style=' cursor: pointer; '></i>
+    </div>
+    `
+    
+    newslists.push(listtag.trim());
+    idx += 1;
   });
 
   console.log(newslists);

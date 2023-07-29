@@ -151,6 +151,11 @@
 
 .newli .fa {
   font-size: 35px;
+  float: right;
+}
+
+.newli .fav-icon {
+  color: black;
 }
 
 @media (max-width: 768px) {
@@ -208,8 +213,8 @@
     }
   
     .newli {
-      padding: 10px;
-      margin: 20px;
+      /* padding: 20px; */
+      margin: 40px;
     }
   
     .author, .cg {
@@ -222,9 +227,8 @@
       font-size: 20px;
     }
 
-    .newli .fa {
+    /* .newli .fa {
         font-size: 20px;
-        margin-bottom: 30px;
-    }
+    } */
   }
   
