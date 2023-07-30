@@ -138,18 +138,11 @@ document.addEventListener("click", (event) => {
     const clonedElement = parentdiv.cloneNode(true);
     const favtag = clonedElement.querySelector(".fav-icon");
     const idValue = parentdiv.getAttribute('id');
-    console.log(idValue);
-
-    console.log(parentdiv.getAttribute("id"));
-
-
+  
     const heart = parentdiv.querySelector("i");
     heart.classList.remove("fav-icon", "fa", "fa-heart-o");
     heart.classList.add("fa", "fa-heart");
     heart.style.color = "red";
-    console.log(parentdiv);
-    // console.log(heart);
-    console.log(newslists);
 
     const heartIcon = document.createElement("i");
     heartIcon.classList.add("fa", "fa-heart");
@@ -157,12 +150,8 @@ document.addEventListener("click", (event) => {
     heartIcon.style.cursor = "pointer";
     clonedElement.replaceChild(heartIcon, favtag);
     newslists[idValue] = clonedElement.outerHTML.trim();
-    console.log(newslists);
     document.querySelector(".saving").appendChild(clonedElement);
-    // document.querySelector(".loading").removeChild(parentdiv);
-    // document.querySelector(".loading").appendChild(clonedElement);
     saveToLocalStorage(clonedElement);
-    
   }
 
   else if (event.target.classList.contains("fa", "fa-heart")) {
@@ -179,8 +168,6 @@ document.addEventListener("click", (event) => {
 
     clonedElement.replaceChild(favIcon, favtag);
     newslists[idValue] = clonedElement.outerHTML.trim();
-    console.log(newslists);
-
     document.querySelector(".saving").removeChild(parentdiv);
   }
 });
